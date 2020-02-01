@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "github.com/j-and-j-global/storage-service/storage.proto";
+
+package local;
+
+service LocalStorage {
+  rpc NewFile(google.protobuf.Empty) returns (storage.File) {}
+  rpc Upload(stream storage.Chunk) returns (google.protobuf.Empty) {}
+  rpc Delete (storage.File) returns (google.protobuf.Empty) {}
+  rpc Status (google.protobuf.Empty) returns (storage.Status) {}
+}
