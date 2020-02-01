@@ -1,5 +1,8 @@
 vendor:
 	go mod vendor
 
-local.pb.go: vendor
-	protoc -I vendor/ -I protos/ protos/local.proto --go_out=plugins=grpc:.
+local:
+	mkdir -p local
+
+local/local.pb.go: vendor local
+	protoc -I vendor/ -I protos/ protos/local.proto --go_out=plugins=grpc:local/
