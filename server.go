@@ -8,7 +8,6 @@ import (
 
 	"github.com/gofrs/uuid"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/j-and-j-global/local-storage/local"
 	"github.com/j-and-j-global/storage-service"
 	"github.com/pkg/errors"
 )
@@ -32,7 +31,7 @@ func (s Server) NewFile(context.Context, *empty.Empty) (f *storage.File, err err
 	return
 }
 
-func (s Server) Upload(stream local.LocalStorage_UploadServer) error {
+func (s Server) Upload(stream storage.Storage_UploadServer) error {
 	var f *os.File
 
 	for {
@@ -71,8 +70,8 @@ func (s Server) Delete(ctx context.Context, f *storage.File) (*empty.Empty, erro
 	return nil, os.Remove(s.path(f.Id))
 }
 
-func (s Server) Status(context.Context, *empty.Empty) (*storage.Status, error) {
-	return &storage.Status{
+func (s Server) Status(context.Context, *empty.Empty) (*storage.ServerStatus, error) {
+	return &storage.ServerStatus{
 		Type:  "local-storage",
 		Id:    s.ID,
 		Ready: true,

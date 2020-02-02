@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/j-and-j-global/local-storage/local"
+	"github.com/j-and-j-global/storage-service"
 	"google.golang.org/grpc"
 )
 
@@ -29,7 +29,7 @@ func main() {
 	}
 
 	grpcServer := grpc.NewServer()
-	local.RegisterLocalStorageServer(grpcServer, server)
+	storage.RegisterStorageServer(grpcServer, server)
 
 	log.Print("Starting server")
 
